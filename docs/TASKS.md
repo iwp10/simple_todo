@@ -2,7 +2,7 @@
 
 - [x] Create app structure
 - [x] Setup Material 3 theme
-- [ ] Setup Riverpod
+- [x] Setup Riverpod
 - [ ] Setup GoRouter
 - [ ] Setup Hive
 
