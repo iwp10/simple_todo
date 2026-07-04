@@ -1,7 +1,7 @@
 # Phase 1
 
-- [ ] Create app structure
-- [ ] Setup Material 3 theme
+- [x] Create app structure
+- [x] Setup Material 3 theme
 - [ ] Setup Riverpod
 - [ ] Setup GoRouter
 - [ ] Setup Hive
