@@ -4,7 +4,7 @@
 - [x] Setup Material 3 theme
 - [x] Setup Riverpod
 - [x] Setup GoRouter
-- [ ] Setup Hive
+- [x] Setup Hive
 
 # Phase 2
 
