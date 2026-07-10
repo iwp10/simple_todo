@@ -8,7 +8,7 @@
 
 # Phase 2
 
-- [ ] Build Home Screen
+- [x] Build Home Screen
 - [ ] Build Empty State
 - [ ] Build Floating Action Button
 

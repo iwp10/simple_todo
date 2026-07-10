@@ -6,9 +6,11 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Home')),
+      appBar: AppBar(
+        title: const Text('Simple Todo'),
+      ),
       body: const Center(
-        child: Text('Home screen placeholder'),
+        child: SizedBox.shrink(),
       ),
     );
   }
