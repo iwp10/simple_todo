@@ -11,6 +11,11 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Simple Todo'),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        tooltip: 'Add Task',
+        child: const Icon(Icons.add_rounded),
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
