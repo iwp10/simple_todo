@@ -15,7 +15,7 @@
 # Phase 3
 
 - [x] Add Task
-- [ ] Save Task
+- [ ] Save Task to Hive
 - [ ] Display Task List
 - [ ] Complete Task
 - [ ] Edit Task
