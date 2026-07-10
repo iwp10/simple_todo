@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:simple_todo/shared/models/task.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -7,8 +9,14 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final tasksBox = Hive.box<Task>('tasks');
 
-    return Scaffold(
+    return ValueListenableBuilder<Box<Task>>(
+      valueListenable: tasksBox.listenable(),
+      builder: (context, box, _) {
+        final currentTasks = box.values.toList();
+
+        return Scaffold(
       appBar: AppBar(
         title: const Text('Simple Todo'),
       ),
@@ -17,38 +25,54 @@ class HomePage extends StatelessWidget {
         tooltip: 'Add Task',
         child: const Icon(Icons.add_rounded),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 320),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.checklist_rounded,
-                  size: 72,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'No tasks yet',
-                  style: textTheme.headlineSmall,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'Tap the + button to create your first task.',
-                  style: textTheme.bodyLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+          body: currentTasks.isEmpty
+              ? Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 320),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.checklist_rounded,
+                            size: 72,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            'No tasks yet',
+                            style: textTheme.headlineSmall,
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Tap the + button to create your first task.',
+                            style: textTheme.bodyLarge?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  textAlign: TextAlign.center,
+                )
+              : ListView.separated(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: currentTasks.length,
+                  separatorBuilder: (_, _) => const SizedBox(height: 8),
+                  itemBuilder: (context, index) {
+                    final task = currentTasks[index];
+                    return Card(
+                      child: ListTile(
+                        title: Text(task.title),
+                      ),
+                    );
+                  },
                 ),
-              ],
-            ),
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
