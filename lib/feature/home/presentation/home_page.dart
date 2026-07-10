@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -12,7 +13,7 @@ class HomePage extends StatelessWidget {
         title: const Text('Simple Todo'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => context.push('/add-task'),
         tooltip: 'Add Task',
         child: const Icon(Icons.add_rounded),
       ),
