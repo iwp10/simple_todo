@@ -14,13 +14,15 @@
 
 # Phase 3
 
-- [ ] Add Task
+- [x] Add Task
+- [ ] Save Task
+- [ ] Display Task List
+- [ ] Complete Task
 - [ ] Edit Task
 - [ ] Delete Task
 
 # Phase 4
 
-- [ ] Complete Task
 - [ ] Search Task
 - [ ] Filter Task
 
