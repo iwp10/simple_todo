@@ -19,7 +19,7 @@
 - [x] Display Task List
 - [x] Complete Task
 - [x] Edit Task
-- [ ] Delete Task
+- [x] Delete Task
 
 # Phase 4
 

@@ -88,10 +88,44 @@ class HomePage extends StatelessWidget {
                                 : null,
                           ),
                         ),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.edit_outlined),
-                          tooltip: 'Edit task',
-                          onPressed: () => context.push('/edit-task', extra: task),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.edit_outlined),
+                              tooltip: 'Edit task',
+                              onPressed: () => context.push('/edit-task', extra: task),
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.delete_outline_rounded),
+                              tooltip: 'Delete task',
+                              onPressed: () async {
+                                final shouldDelete = await showDialog<bool>(
+                                  context: context,
+                                  builder: (dialogContext) => AlertDialog(
+                                    title: const Text('Delete task?'),
+                                    content: Text(
+                                      'Delete "${task.title}"?',
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.of(dialogContext).pop(false),
+                                        child: const Text('Cancel'),
+                                      ),
+                                      FilledButton.tonal(
+                                        onPressed: () => Navigator.of(dialogContext).pop(true),
+                                        child: const Text('Delete'),
+                                      ),
+                                    ],
+                                  ),
+                                );
+
+                                if (shouldDelete == true) {
+                                  task.delete();
+                                }
+                              },
+                            ),
+                          ],
                         ),
                       ),
                     );
