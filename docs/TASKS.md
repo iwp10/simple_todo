@@ -17,7 +17,7 @@
 - [x] Add Task
 - [x] Save Task to Hive
 - [x] Display Task List
-- [ ] Complete Task
+- [x] Complete Task
 - [ ] Edit Task
 - [ ] Delete Task
 
