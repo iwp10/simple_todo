@@ -88,6 +88,11 @@ class HomePage extends StatelessWidget {
                                 : null,
                           ),
                         ),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.edit_outlined),
+                          tooltip: 'Edit task',
+                          onPressed: () => context.push('/edit-task', extra: task),
+                        ),
                       ),
                     );
                   },

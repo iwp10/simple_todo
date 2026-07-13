@@ -18,7 +18,7 @@
 - [x] Save Task to Hive
 - [x] Display Task List
 - [x] Complete Task
-- [ ] Edit Task
+- [x] Edit Task
 - [ ] Delete Task
 
 # Phase 4
