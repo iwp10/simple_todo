@@ -66,7 +66,28 @@ class HomePage extends StatelessWidget {
                     final task = currentTasks[index];
                     return Card(
                       child: ListTile(
-                        title: Text(task.title),
+                        leading: Checkbox(
+                          value: task.isCompleted,
+                          onChanged: (value) {
+                            if (value == null) {
+                              return;
+                            }
+
+                            task.isCompleted = value;
+                            task.save();
+                          },
+                        ),
+                        title: Text(
+                          task.title,
+                          style: TextStyle(
+                            decoration: task.isCompleted
+                                ? TextDecoration.lineThrough
+                                : null,
+                            color: task.isCompleted
+                                ? Theme.of(context).colorScheme.onSurfaceVariant
+                                : null,
+                          ),
+                        ),
                       ),
                     );
                   },
