@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:simple_todo/shared/models/task.dart';
-import 'package:simple_todo/shared/theme/app_theme.dart';
+import 'package:simple_todo/shared/services/settings_service.dart';
 
 enum TaskFilter { all, active, completed }
 
@@ -62,10 +62,12 @@ class _HomePageState extends ConsumerState<HomePage> {
             title: const Text('Simple Todo'),
             actions: [
               TextButton.icon(
-                onPressed: () {
-                  final currentThemeMode = ref.read(themeModeProvider);
-                  ref.read(themeModeProvider.notifier).state =
-                      currentThemeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
+                onPressed: () async {
+                  final currentThemeMode = ref.read(themeModeControllerProvider);
+                  final nextThemeMode = currentThemeMode == ThemeMode.dark
+                      ? ThemeMode.light
+                      : ThemeMode.dark;
+                  await ref.read(themeModeControllerProvider.notifier).changeThemeMode(nextThemeMode);
                 },
                 icon: Icon(
                   isDarkMode ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
