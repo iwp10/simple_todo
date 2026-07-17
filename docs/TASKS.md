@@ -40,7 +40,7 @@
 
 # Phase 7 - Testing & Release
 
-- [ ] Manual testing
-- [ ] Fix remaining bugs
+- [x] Manual testing
+- [x] Fix remaining bugs
 - [ ] Update README.md
 - [ ] Build Release APK
