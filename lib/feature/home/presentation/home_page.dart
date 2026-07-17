@@ -23,13 +23,6 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  void _clearSearch() {
-    _searchController.clear();
-    setState(() {
-      _searchQuery = '';
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -84,13 +77,6 @@ class _HomePageState extends State<HomePage> {
                       decoration: InputDecoration(
                         hintText: 'Search tasks',
                         prefixIcon: const Icon(Icons.search_rounded),
-                        suffixIcon: _searchController.text.isNotEmpty
-                            ? IconButton(
-                                icon: const Icon(Icons.clear_rounded),
-                                tooltip: 'Clear search',
-                                onPressed: _clearSearch,
-                              )
-                            : null,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
