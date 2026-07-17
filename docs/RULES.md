@@ -20,6 +20,14 @@ Hive
 
 Material 3
 
+## Navigation
+
+GoRouter
+
+## Folder Structure
+
+Feature-first architecture
+
 ## Rules
 
 - Use Clean Code
@@ -28,5 +36,10 @@ Material 3
 - Use meaningful variable names
 - Separate UI and business logic
 - Follow feature-first folder structure
-- Explain major changes before coding
+- Use Material 3 components when possible
+- Keep changes small and focused
 - Implement only one task at a time
+- Explain implementation plan before coding
+- Wait for approval before making changes
+- Run `flutter analyze` after each task
+- Test the feature before committing

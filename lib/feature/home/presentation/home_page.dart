@@ -60,13 +60,14 @@ class _HomePageState extends State<HomePage> {
             tooltip: 'Add Task',
             child: const Icon(Icons.add_rounded),
           ),
-          body: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-                child: Column(
-                  children: [
-                    TextField(
+          body: SafeArea(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
+                  child: Column(
+                    children: [
+                      TextField(
                       controller: _searchController,
                       onChanged: (value) {
                         setState(() {
@@ -82,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                         contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 16),
                     SegmentedButton<TaskFilter>(
                       segments: const [
                         ButtonSegment<TaskFilter>(
@@ -115,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                 child: visibleTasks.isEmpty
                     ? Center(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          padding: const EdgeInsets.fromLTRB(24, 8, 24, 96),
                           child: ConstrainedBox(
                             constraints: const BoxConstraints(maxWidth: 320),
                             child: Column(
@@ -150,9 +151,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                       )
                     : ListView.separated(
-                        padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                        padding: const EdgeInsets.fromLTRB(20, 8, 20, 96),
                         itemCount: visibleTasks.length,
-                        separatorBuilder: (_, _) => const SizedBox(height: 8),
+                        separatorBuilder: (_, _) => const SizedBox(height: 12),
                         itemBuilder: (context, index) {
                           final task = visibleTasks[index];
                           return Card(
@@ -223,7 +224,8 @@ class _HomePageState extends State<HomePage> {
                         },
                       ),
               ),
-            ],
+              ],
+            ),
           ),
         );
       },

@@ -1,4 +1,4 @@
-# Phase 1
+# Phase 1 - Project Setup
 
 - [x] Create app structure
 - [x] Setup Material 3 theme
@@ -6,13 +6,13 @@
 - [x] Setup GoRouter
 - [x] Setup Hive
 
-# Phase 2
+# Phase 2 - Home UI
 
 - [x] Build Home Screen
 - [x] Build Empty State
 - [x] Build Floating Action Button
 
-# Phase 3
+# Phase 3 - CRUD
 
 - [x] Add Task
 - [x] Save Task to Hive
@@ -21,20 +21,26 @@
 - [x] Edit Task
 - [x] Delete Task
 
-# Phase 4
+# Phase 4 - Search & Filter
 
 - [x] Search Task
-- [ ] Filter Task
+- [x] Filter Task
 
-# Phase 5
+# Phase 5 - UI Polish
 
-- [ ] Save data with Hive
+- [x] Improve spacing and layout
+- [ ] Improve task card design
+- [ ] Add empty state for search results
+- [ ] Improve search/filter UX
 
-# Phase 6
+# Phase 6 - Dark Mode
 
-- [ ] Dark Mode
+- [ ] Add Dark Mode
+- [ ] Save theme preference
 
-# Phase 7
+# Phase 7 - Testing & Release
 
-- [ ] Testing
+- [ ] Manual testing
+- [ ] Fix remaining bugs
+- [ ] Update README.md
 - [ ] Build Release APK
