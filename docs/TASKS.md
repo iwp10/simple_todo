@@ -29,7 +29,7 @@
 # Phase 5 - UI Polish
 
 - [x] Improve spacing and layout
-- [ ] Improve task card design
+- [x] Improve task card design
 - [ ] Add empty state for search results
 - [ ] Improve search/filter UX
 

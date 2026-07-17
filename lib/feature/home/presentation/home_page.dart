@@ -156,68 +156,83 @@ class _HomePageState extends State<HomePage> {
                         separatorBuilder: (_, _) => const SizedBox(height: 12),
                         itemBuilder: (context, index) {
                           final task = visibleTasks[index];
+                          final isCompleted = task.isCompleted;
+                          final cardColor = isCompleted
+                              ? Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.35)
+                              : Theme.of(context).colorScheme.surface;
+
                           return Card(
-                            child: ListTile(
-                              leading: Checkbox(
-                                value: task.isCompleted,
-                                onChanged: (value) {
-                                  if (value == null) {
-                                    return;
-                                  }
+                            elevation: 1,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            color: cardColor,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+                                leading: Checkbox(
+                                  value: isCompleted,
+                                  onChanged: (value) {
+                                    if (value == null) {
+                                      return;
+                                    }
 
-                                  task.isCompleted = value;
-                                  task.save();
-                                },
-                              ),
-                              title: Text(
-                                task.title,
-                                style: TextStyle(
-                                  decoration: task.isCompleted
-                                      ? TextDecoration.lineThrough
-                                      : null,
-                                  color: task.isCompleted
-                                      ? Theme.of(context).colorScheme.onSurfaceVariant
-                                      : null,
+                                    task.isCompleted = value;
+                                    task.save();
+                                  },
                                 ),
-                              ),
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  IconButton(
-                                    icon: const Icon(Icons.edit_outlined),
-                                    tooltip: 'Edit task',
-                                    onPressed: () => context.push('/edit-task', extra: task),
+                                title: Text(
+                                  task.title,
+                                  style: TextStyle(
+                                    decoration: isCompleted
+                                        ? TextDecoration.lineThrough
+                                        : null,
+                                    color: isCompleted
+                                        ? Theme.of(context).colorScheme.onSurfaceVariant
+                                        : null,
+                                    fontWeight: isCompleted ? FontWeight.w500 : FontWeight.w600,
                                   ),
-                                  IconButton(
-                                    icon: const Icon(Icons.delete_outline_rounded),
-                                    tooltip: 'Delete task',
-                                    onPressed: () async {
-                                      final shouldDelete = await showDialog<bool>(
-                                        context: context,
-                                        builder: (dialogContext) => AlertDialog(
-                                          title: const Text('Delete task?'),
-                                          content: Text(
-                                            'Delete "${task.title}"?',
+                                ),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(Icons.edit_outlined),
+                                      tooltip: 'Edit task',
+                                      onPressed: () => context.push('/edit-task', extra: task),
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.delete_outline_rounded),
+                                      tooltip: 'Delete task',
+                                      onPressed: () async {
+                                        final shouldDelete = await showDialog<bool>(
+                                          context: context,
+                                          builder: (dialogContext) => AlertDialog(
+                                            title: const Text('Delete task?'),
+                                            content: Text(
+                                              'Delete "${task.title}"?',
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.of(dialogContext).pop(false),
+                                                child: const Text('Cancel'),
+                                              ),
+                                              FilledButton.tonal(
+                                                onPressed: () => Navigator.of(dialogContext).pop(true),
+                                                child: const Text('Delete'),
+                                              ),
+                                            ],
                                           ),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () => Navigator.of(dialogContext).pop(false),
-                                              child: const Text('Cancel'),
-                                            ),
-                                            FilledButton.tonal(
-                                              onPressed: () => Navigator.of(dialogContext).pop(true),
-                                              child: const Text('Delete'),
-                                            ),
-                                          ],
-                                        ),
-                                      );
+                                        );
 
-                                      if (shouldDelete == true) {
-                                        task.delete();
-                                      }
-                                    },
-                                  ),
-                                ],
+                                        if (shouldDelete == true) {
+                                          task.delete();
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );
