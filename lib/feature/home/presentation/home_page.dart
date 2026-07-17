@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Expanded(
-                child: visibleTasks.isEmpty
+                child: allTasks.isEmpty
                     ? Center(
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(24, 8, 24, 96),
@@ -123,23 +123,19 @@ class _HomePageState extends State<HomePage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
-                                  Icons.search_off_rounded,
+                                  Icons.checklist_rounded,
                                   size: 72,
                                   color: Theme.of(context).colorScheme.primary,
                                 ),
                                 const SizedBox(height: 16),
                                 Text(
-                                  allTasks.isEmpty
-                                      ? 'No tasks yet'
-                                      : 'No matching tasks',
+                                  'No tasks yet',
                                   style: textTheme.headlineSmall,
                                   textAlign: TextAlign.center,
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
-                                  allTasks.isEmpty
-                                      ? 'Tap the + button to create your first task.'
-                                      : 'Try a different search term.',
+                                  'Tap the + button to create your first task.',
                                   style: textTheme.bodyLarge?.copyWith(
                                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                                   ),
@@ -150,7 +146,40 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       )
-                    : ListView.separated(
+                    : visibleTasks.isEmpty
+                        ? Center(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(24, 8, 24, 96),
+                              child: ConstrainedBox(
+                                constraints: const BoxConstraints(maxWidth: 320),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.search_off_rounded,
+                                      size: 72,
+                                      color: Theme.of(context).colorScheme.primary,
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Text(
+                                      'No matching tasks',
+                                      style: textTheme.headlineSmall,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      'Try a different search term or change the filter.',
+                                      style: textTheme.bodyLarge?.copyWith(
+                                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                        : ListView.separated(
                         padding: const EdgeInsets.fromLTRB(20, 8, 20, 96),
                         itemCount: visibleTasks.length,
                         separatorBuilder: (_, _) => const SizedBox(height: 12),

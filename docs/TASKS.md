@@ -30,7 +30,7 @@
 
 - [x] Improve spacing and layout
 - [x] Improve task card design
-- [ ] Add empty state for search results
+- [x] Add empty state for search results
 - [ ] Improve search/filter UX
 
 # Phase 6 - Dark Mode
