@@ -35,7 +35,7 @@
 
 # Phase 6 - Dark Mode
 
-- [ ] Add Dark Mode
+- [x] Add Dark Mode
 - [ ] Save theme preference
 
 # Phase 7 - Testing & Release

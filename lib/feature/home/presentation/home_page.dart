@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:simple_todo/shared/models/task.dart';
+import 'package:simple_todo/shared/theme/app_theme.dart';
 
 enum TaskFilter { all, active, completed }
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
   TaskFilter _selectedFilter = TaskFilter.all;
@@ -51,9 +53,29 @@ class _HomePageState extends State<HomePage> {
           }
         }).toList();
 
+        final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
         return Scaffold(
           appBar: AppBar(
+            scrolledUnderElevation: 0,
+            surfaceTintColor: Colors.transparent,
             title: const Text('Simple Todo'),
+            actions: [
+              TextButton.icon(
+                onPressed: () {
+                  final currentThemeMode = ref.read(themeModeProvider);
+                  ref.read(themeModeProvider.notifier).state =
+                      currentThemeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
+                },
+                icon: Icon(
+                  isDarkMode ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
+                ),
+                label: Text(isDarkMode ? 'Dark' : 'Light'),
+                style: TextButton.styleFrom(
+                  foregroundColor: Theme.of(context).colorScheme.onSurface,
+                ),
+              ),
+            ],
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () => context.push('/add-task'),
