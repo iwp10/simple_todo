@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:simple_todo/shared/models/task.dart';
 
+enum TaskFilter { all, active, completed }
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -13,6 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
+  TaskFilter _selectedFilter = TaskFilter.all;
 
   @override
   void dispose() {
@@ -30,11 +33,23 @@ class _HomePageState extends State<HomePage> {
       builder: (context, box, _) {
         final allTasks = box.values.toList();
         final normalizedQuery = _searchQuery.trim().toLowerCase();
-        final visibleTasks = normalizedQuery.isEmpty
+
+        final searchFilteredTasks = normalizedQuery.isEmpty
             ? allTasks
             : allTasks.where((task) {
                 return task.title.toLowerCase().contains(normalizedQuery);
               }).toList();
+
+        final visibleTasks = searchFilteredTasks.where((task) {
+          switch (_selectedFilter) {
+            case TaskFilter.active:
+              return !task.isCompleted;
+            case TaskFilter.completed:
+              return task.isCompleted;
+            case TaskFilter.all:
+              return true;
+          }
+        }).toList();
 
         return Scaffold(
           appBar: AppBar(
@@ -49,21 +64,51 @@ class _HomePageState extends State<HomePage> {
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-                child: TextField(
-                  controller: _searchController,
-                  onChanged: (value) {
-                    setState(() {
-                      _searchQuery = value;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    hintText: 'Search tasks',
-                    prefixIcon: const Icon(Icons.search_rounded),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: _searchController,
+                      onChanged: (value) {
+                        setState(() {
+                          _searchQuery = value;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Search tasks',
+                        prefixIcon: const Icon(Icons.search_rounded),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                      ),
                     ),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                  ),
+                    const SizedBox(height: 12),
+                    SegmentedButton<TaskFilter>(
+                      segments: const [
+                        ButtonSegment<TaskFilter>(
+                          value: TaskFilter.all,
+                          label: Text('All'),
+                          icon: Icon(Icons.list_rounded),
+                        ),
+                        ButtonSegment<TaskFilter>(
+                          value: TaskFilter.active,
+                          label: Text('Active'),
+                          icon: Icon(Icons.radio_button_unchecked_rounded),
+                        ),
+                        ButtonSegment<TaskFilter>(
+                          value: TaskFilter.completed,
+                          label: Text('Completed'),
+                          icon: Icon(Icons.check_circle_rounded),
+                        ),
+                      ],
+                      selected: {_selectedFilter},
+                      onSelectionChanged: (selection) {
+                        setState(() {
+                          _selectedFilter = selection.first;
+                        });
+                      },
+                    ),
+                  ],
                 ),
               ),
               Expanded(
