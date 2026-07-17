@@ -31,7 +31,9 @@
 - [x] Improve spacing and layout
 - [x] Improve task card design
 - [x] Add empty state for search results
-- [ ] Improve search/filter UX
+- [x] Add clear button to search field
+- [ ] Dismiss keyboard on search
+- [ ] Improve search field interaction
 
 # Phase 6 - Dark Mode
 

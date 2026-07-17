@@ -23,6 +23,13 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
+  void _clearSearch() {
+    _searchController.clear();
+    setState(() {
+      _searchQuery = '';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -77,6 +84,13 @@ class _HomePageState extends State<HomePage> {
                       decoration: InputDecoration(
                         hintText: 'Search tasks',
                         prefixIcon: const Icon(Icons.search_rounded),
+                        suffixIcon: _searchController.text.isNotEmpty
+                            ? IconButton(
+                                icon: const Icon(Icons.clear_rounded),
+                                tooltip: 'Clear search',
+                                onPressed: _clearSearch,
+                              )
+                            : null,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
@@ -113,7 +127,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Expanded(
-                child: allTasks.isEmpty
+                child: visibleTasks.isEmpty
                     ? Center(
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(24, 8, 24, 96),
@@ -123,19 +137,23 @@ class _HomePageState extends State<HomePage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
-                                  Icons.checklist_rounded,
+                                  Icons.search_off_rounded,
                                   size: 72,
                                   color: Theme.of(context).colorScheme.primary,
                                 ),
                                 const SizedBox(height: 16),
                                 Text(
-                                  'No tasks yet',
+                                  allTasks.isEmpty
+                                      ? 'No tasks yet'
+                                      : 'No matching tasks',
                                   style: textTheme.headlineSmall,
                                   textAlign: TextAlign.center,
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
-                                  'Tap the + button to create your first task.',
+                                  allTasks.isEmpty
+                                      ? 'Tap the + button to create your first task.'
+                                      : 'Try a different search term.',
                                   style: textTheme.bodyLarge?.copyWith(
                                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                                   ),
@@ -146,40 +164,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       )
-                    : visibleTasks.isEmpty
-                        ? Center(
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(24, 8, 24, 96),
-                              child: ConstrainedBox(
-                                constraints: const BoxConstraints(maxWidth: 320),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.search_off_rounded,
-                                      size: 72,
-                                      color: Theme.of(context).colorScheme.primary,
-                                    ),
-                                    const SizedBox(height: 16),
-                                    Text(
-                                      'No matching tasks',
-                                      style: textTheme.headlineSmall,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      'Try a different search term or change the filter.',
-                                      style: textTheme.bodyLarge?.copyWith(
-                                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )
-                        : ListView.separated(
+                    : ListView.separated(
                         padding: const EdgeInsets.fromLTRB(20, 8, 20, 96),
                         itemCount: visibleTasks.length,
                         separatorBuilder: (_, _) => const SizedBox(height: 12),
