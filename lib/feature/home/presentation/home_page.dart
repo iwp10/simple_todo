@@ -59,7 +59,25 @@ class _HomePageState extends ConsumerState<HomePage> {
           appBar: AppBar(
             scrolledUnderElevation: 0,
             surfaceTintColor: Colors.transparent,
-            title: const Text('Simple Todo'),
+            title: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'PWI Todo',
+                  style: textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  'TaskFlow by IWP',
+                  style: textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ],
+            ),
             actions: [
               TextButton.icon(
                 onPressed: () async {
