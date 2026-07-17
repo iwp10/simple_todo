@@ -23,7 +23,7 @@
 
 # Phase 4
 
-- [ ] Search Task
+- [x] Search Task
 - [ ] Filter Task
 
 # Phase 5
