@@ -42,5 +42,5 @@
 
 - [x] Manual testing
 - [x] Fix remaining bugs
-- [ ] Update README.md
-- [ ] Build Release APK
+- [x] Update README.md
+- [x] Build Release APK
